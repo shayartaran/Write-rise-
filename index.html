@@ -41,9 +41,9 @@
   .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 7vw, 96px); font-weight: 700; line-height: 1.0; }
   .hero h1 em { color: var(--gold-light); font-style: italic; }
   
-  .btn-primary { background: var(--gold); color: var(--navy-deep); padding: 16px 40px; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); transition: .3s; }
+  .btn-primary { background: var(--gold); color: var(--navy-deep); padding: 16px 40px; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); transition: .3s; text-decoration: none; display: inline-block; }
   .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .btn-ghost { background: transparent; color: var(--white); padding: 15px 38px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; font-weight: 600; text-transform: uppercase; transition: .3s; }
+  .btn-ghost { background: transparent; color: var(--white); padding: 15px 38px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; font-weight: 600; text-transform: uppercase; transition: .3s; text-decoration: none; display: inline-block; }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
   /* ── SERVICES ── */
@@ -84,7 +84,7 @@
   .social-btn { width: 44px; height: 44px; border: 1px solid rgba(184,150,46,0.25); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--gold); transition: .3s; border-radius: 50%; }
   .social-btn:hover { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
   
-  /* FOOTER LOGO: "WRITE" is now white, "RISE" is gold */
+  /* FOOTER LOGO: WRITE (White) RISE (Gold) */
   .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; letter-spacing: 3px; color: #ffffff; margin-bottom: 20px; text-transform: uppercase; }
   .footer-logo span { color: var(--gold); }
 </style>
@@ -99,7 +99,7 @@
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    </div>
+  </div>
 </nav>
 
 <section class="hero">
@@ -108,8 +108,8 @@
     <h1>Words That<br><em>Elevate</em><br>Brands</h1>
     <p style="color:rgba(255,255,255,0.5); margin: 30px 0 50px; max-width: 550px; line-height:1.8;">We craft premium content that transforms readers into loyal customers — and brands into industry leaders through strategic storytelling.</p>
     <div class="hero-actions">
-      <a href="#contact"><button class="btn-primary">Start a Project</button></a>
-      <a href="#services"><button class="btn-ghost" style="margin-left:15px;">Our Expertise</button></a>
+      <a href="#contact" class="btn-primary">Start a Project</a>
+      <a href="#services" class="btn-ghost" style="margin-left:15px;">Our Expertise</a>
     </div>
   </div>
 </section>
@@ -162,11 +162,11 @@
     <p style="color:var(--text-muted); margin-bottom:10px;">Let's build your legacy together.</p>
     <p style="color:var(--text-muted);">Reach us directly at <span style="color:var(--gold); font-weight:700;">writerisehq@gmail.com</span></p>
     
-    <form class="contact-form">
-      <div class="form-group"><input type="text" placeholder="Your Name" required></div>
+    <form class="contact-form" id="main-form">
+      <div class="form-group"><input type="text" placeholder="Your Name" required id="contact-name"></div>
       <div class="form-group"><input type="email" placeholder="Your Email" required></div>
       <div class="form-group"><textarea rows="5" placeholder="Tell us about your project..." required></textarea></div>
-      <button type="submit" class="btn-primary" style="width:100%;">Start Your Project</button>
+      <button type="submit" class="btn-primary" style="width:100%; border-radius:0;">Send Message</button>
     </form>
   </div>
 </section>
