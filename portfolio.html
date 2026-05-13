@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Write Rise Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-deep: #0f1a30;
+    --navy-mid: #243156;
+    --gold: #b8962e;
+    --gold-light: #d4af5a;
+    --gold-pale: #f0e6c8;
+    --cream: #faf8f3;
+    --white: #ffffff;
+    --text-muted: #7a8399;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 6%;
+    background: rgba(250,248,243,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+    transition: all .3s ease;
+  }
+  nav.scrolled { padding: 12px 6%; box-shadow: 0 4px 30px rgba(26,39,68,0.08); }
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700; letter-spacing: 2px;
+    color: var(--navy-deep); line-height: 1;
+    display: flex; flex-direction: column; text-decoration: none;
+  }
+  .logo-text span { color: var(--gold); }
+  .logo-text small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px; font-weight: 700; letter-spacing: 4px;
+    color: var(--text-muted); text-transform: uppercase; margin-top: 2px;
+  }
+  .nav-back {
+    background: transparent; color: var(--navy); border: 1.5px solid rgba(26,39,68,0.2);
+    padding: 10px 24px; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; transition: all .3s; text-decoration: none;
+    display: inline-block;
+  }
+  .nav-back:hover { border-color: var(--gold); color: var(--gold); }
+  .nav-cta {
+    background: var(--navy); color: var(--white);
+    padding: 11px 26px; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; transition: all .3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .nav-cta:hover { background: var(--gold); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+
+  /* HERO */
+  .hero {
+    min-height: 52vh;
+    background: var(--navy-deep);
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding: 140px 6% 80px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(184,150,46,0.05) 80px);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 780px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(184,150,46,0.12);
+    border: 1px solid rgba(184,150,46,0.3);
+    padding: 7px 18px; margin-bottom: 28px;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-badge span { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); }
+  .hero-badge i { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; display: inline-block; }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 6vw, 80px);
+    font-weight: 700; line-height: 1.05; color: var(--white);
+    animation: fadeUp .8s .15s ease both;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: italic; }
+  .hero-sub {
+    font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.5);
+    max-width: 500px; margin-top: 22px; font-weight: 300;
+    animation: fadeUp .8s .3s ease both;
+  }
+
+  /* FILTER TABS */
+  .filter-bar {
+    background: var(--white);
+    padding: 0 6%;
+    border-bottom: 1px solid rgba(26,39,68,0.08);
+    display: flex; gap: 0; overflow-x: auto;
+    position: sticky; top: 72px; z-index: 50;
+    scrollbar-width: none;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    padding: 20px 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-muted);
+    background: transparent; border: none; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .3s; white-space: nowrap;
+  }
+  .filter-btn:hover { color: var(--navy); }
+  .filter-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* PORTFOLIO GRID */
+  .portfolio-section { padding: 80px 6%; }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+  }
+
+  .portfolio-card {
+    background: var(--white);
+    position: relative; overflow: hidden;
+    cursor: pointer; transition: all .4s ease;
+    border-bottom: 3px solid transparent;
+    display: flex; flex-direction: column;
+  }
+  .portfolio-card:hover { border-bottom-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(26,39,68,0.1); }
+
+  .card-header {
+    background: var(--navy-deep);
+    padding: 36px 36px 28px;
+    position: relative; overflow: hidden;
+  }
+  .card-header::before {
+    content: attr(data-icon);
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    font-size: 64px; opacity: 0.07;
+  }
+  .card-category {
+    font-size: 9px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 700; color: var(--white); line-height: 1.2;
+  }
+  .card-industry {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    margin-top: 10px;
+  }
+
+  .card-body { padding: 32px 36px; flex: 1; display: flex; flex-direction: column; }
+  .card-excerpt {
+    font-size: 13px; line-height: 1.9; color: var(--text-muted);
+    font-weight: 300; flex: 1;
+  }
+  .card-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 28px; padding-top: 20px;
+    border-top: 1px solid rgba(26,39,68,0.07);
+  }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .card-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 10px;
+    background: var(--cream); color: var(--navy);
+  }
+  .card-read {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 6px;
+    white-space: nowrap;
+  }
+  .card-read::after { content: '→'; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,16,30,0.85);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--cream);
+    max-width: 760px; width: 100%;
+    max-height: 88vh; overflow-y: auto;
+    position: relative;
+    transform: translateY(30px);
+    transition: transform .35s ease;
+    scrollbar-width: thin;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-close {
+    position: sticky; top: 0; left: 0; right: 0;
+    display: flex; justify-content: flex-end;
+    padding: 16px 20px;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(26,39,68,0.08);
+    z-index: 10;
+  }
+  .close-btn {
+    background: var(--navy); color: var(--white);
+    border: none; cursor: pointer;
+    width: 36px; height: 36px;
+    font-size: 18px; display: flex; align-items: center; justify-content: center;
+    transition: background .3s;
+  }
+  .close-btn:hover { background: var(--gold); }
+
+  .modal-hero {
+    background: var(--navy-deep);
+    padding: 48px 52px 40px;
+    position: relative; overflow: hidden;
+  }
+  .modal-hero::before {
+    content: attr(data-icon);
+    position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+    font-size: 120px; opacity: 0.06;
+  }
+  .modal-category {
+    font-size: 9px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+  }
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 44px); font-weight: 700;
+    color: var(--white); line-height: 1.15;
+  }
+  .modal-meta {
+    display: flex; gap: 24px; margin-top: 18px; flex-wrap: wrap;
+  }
+  .modal-meta-item { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .modal-meta-item strong { color: rgba(255,255,255,0.7); display: block; margin-bottom: 2px; font-size: 11px; }
+
+  .modal-body { padding: 44px 52px 52px; }
+  .modal-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700; color: var(--navy-deep);
+    margin: 32px 0 14px;
+  }
+  .modal-body h3:first-child { margin-top: 0; }
+  .modal-body p {
+    font-size: 13.5px; line-height: 1.95; color: #4a5570;
+    font-weight: 300; margin-bottom: 18px;
+  }
+  .modal-body blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 16px 24px;
+    background: rgba(184,150,46,0.06);
+    margin: 24px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic; color: var(--navy);
+    line-height: 1.6;
+  }
+  .modal-body ul { padding-left: 20px; margin-bottom: 18px; }
+  .modal-body ul li { font-size: 13.5px; line-height: 1.95; color: #4a5570; font-weight: 300; margin-bottom: 6px; }
+  .modal-cta {
+    margin-top: 44px; padding-top: 36px;
+    border-top: 1px solid rgba(26,39,68,0.1);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+  .modal-cta p { font-size: 13px; color: var(--text-muted); max-width: 360px; line-height: 1.7; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy-deep);
+    padding: 14px 36px; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; transition: all .3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-deep);
+    padding: 60px 6% 36px;
+    border-top: 1px solid rgba(184,150,46,0.15);
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 28px;
+  }
+  .footer-logo .logo-text { color: var(--white); font-size: 18px; }
+  .footer-logo .logo-text span { color: var(--gold); }
+  .footer-logo .logo-text small { color: rgba(255,255,255,0.3); }
+  .footer-links-row { display: flex; gap: 28px; flex-wrap: wrap; }
+  .footer-links-row a {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    text-decoration: none; transition: color .3s;
+  }
+  .footer-links-row a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: .5px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav .nav-back { display: none; }
+    .modal-body { padding: 32px 28px 40px; }
+    .modal-hero { padding: 36px 28px 32px; }
+  }
+  @media (max-width: 600px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .modal-cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="logo-text" href="writerise.html">WRITE <span>RISE</span><small>AGENCY</small></a>
+  <div class="nav-right">
+    <a class="nav-back" href="writerise.html">← Back to Home</a>
+    <button class="nav-cta" onclick="window.location.href='mailto:writerisehq@gmail.com?subject=Get a Quote'">Get a Quote</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><i></i><span>Sample Work · Demo Portfolio</span></div>
+    <h1>Words That<br><em>Prove</em> Results</h1>
+    <p class="hero-sub">Browse our work across blog articles, copywriting, website content, email campaigns, social media, and whitepapers — every piece crafted with purpose.</p>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-filter="all">All Work</button>
+  <button class="filter-btn" data-filter="blog">Blog Articles</button>
+  <button class="filter-btn" data-filter="copy">Copywriting</button>
+  <button class="filter-btn" data-filter="web">Website Content</button>
+  <button class="filter-btn" data-filter="email">Email Campaigns</button>
+  <button class="filter-btn" data-filter="social">Social Media</button>
+  <button class="filter-btn" data-filter="whitepaper">Whitepapers</button>
+</div>
+
+<!-- PORTFOLIO GRID -->
+<section class="portfolio-section">
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <!-- BLOG 1 -->
+    <div class="portfolio-card reveal" data-category="blog" onclick="openModal('blog1')">
+      <div class="card-header" data-icon="📝">
+        <div class="card-category">Blog Article · SEO</div>
+        <div class="card-title">10 SaaS Onboarding Mistakes That Kill Retention</div>
+        <div class="card-industry">Technology & SaaS</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A data-driven long-form guide that ranked #3 on Google within 60 days. Covers the most common onboarding pitfalls and the exact frameworks to fix them — written to convert organic readers into trial sign-ups.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">2,400 words</span>
+            <span class="card-tag">SEO</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPY 1 -->
+    <div class="portfolio-card reveal" data-category="copy" onclick="openModal('copy1')">
+      <div class="card-header" data-icon="✒">
+        <div class="card-category">Copywriting · Sales Page</div>
+        <div class="card-title">Landing Page for a B2B Finance Tool</div>
+        <div class="card-industry">Finance & Fintech</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A high-converting sales page built around pain-point empathy and a clear ROI narrative. Structured with a strong above-the-fold hook, social proof, feature-to-benefit framing, and a low-friction CTA.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">Sales Page</span>
+            <span class="card-tag">B2B</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEB 1 -->
+    <div class="portfolio-card reveal" data-category="web" onclick="openModal('web1')">
+      <div class="card-header" data-icon="🌐">
+        <div class="card-category">Website Content · Homepage</div>
+        <div class="card-title">Homepage & About Page for a Wellness Brand</div>
+        <div class="card-industry">Healthcare & Wellness</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">Full homepage and about page copy for a holistic wellness startup. Balances warmth and authority — written to connect emotionally with health-conscious consumers while positioning the brand as credible and science-backed.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">Homepage</span>
+            <span class="card-tag">Brand Voice</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 1 -->
+    <div class="portfolio-card reveal" data-category="email" onclick="openModal('email1')">
+      <div class="card-header" data-icon="📧">
+        <div class="card-category">Email Campaign · Sequence</div>
+        <div class="card-title">5-Part Welcome Sequence for an E-Commerce Brand</div>
+        <div class="card-industry">E-Commerce & Retail</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A nurture-to-convert email sequence that achieved a 48% average open rate. Each email is engineered with a specific goal — build trust, share story, overcome objection, showcase product, and close with urgency.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">5 Emails</span>
+            <span class="card-tag">48% Open Rate</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL 1 -->
+    <div class="portfolio-card reveal" data-category="social" onclick="openModal('social1')">
+      <div class="card-header" data-icon="📱">
+        <div class="card-category">Social Media · LinkedIn</div>
+        <div class="card-title">LinkedIn Thought Leadership Pack for a CEO</div>
+        <div class="card-industry">B2B Services</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A month of LinkedIn posts for a B2B consulting CEO. Blends personal narrative, industry insight, and subtle authority-building — written in a voice that feels genuinely human, not like corporate PR copy.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">12 Posts</span>
+            <span class="card-tag">LinkedIn</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHITEPAPER 1 -->
+    <div class="portfolio-card reveal" data-category="whitepaper" onclick="openModal('wp1')">
+      <div class="card-header" data-icon="📄">
+        <div class="card-category">Whitepaper · B2B Report</div>
+        <div class="card-title">The Future of Remote Work: 2025 Enterprise Playbook</div>
+        <div class="card-industry">Technology & SaaS</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A 14-page research-backed whitepaper used as a lead magnet that generated over 600 qualified downloads in its first month. Covers trends, data, and actionable frameworks for enterprise HR and operations teams.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">14 Pages</span>
+            <span class="card-tag">Lead Gen</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG 2 -->
+    <div class="portfolio-card reveal" data-category="blog" onclick="openModal('blog2')">
+      <div class="card-header" data-icon="📝">
+        <div class="card-category">Blog Article · Thought Leadership</div>
+        <div class="card-title">Why Most Real Estate Brands Sound Exactly the Same</div>
+        <div class="card-industry">Real Estate</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A provocative thought-leadership piece commissioned by a real estate agency to differentiate their brand online. Bold, conversational, and structured to generate shares and backlinks from industry peers.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">1,800 words</span>
+            <span class="card-tag">Opinion</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 2 -->
+    <div class="portfolio-card reveal" data-category="email" onclick="openModal('email2')">
+      <div class="card-header" data-icon="📧">
+        <div class="card-category">Email Campaign · Newsletter</div>
+        <div class="card-title">Monthly Newsletter for a Legal Tech Startup</div>
+        <div class="card-industry">Legal & Law</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">A recurring newsletter that positioned a legal tech startup as a trusted authority in their niche. Each edition balances industry news, original insight, and a soft product mention — no hard selling, all value delivery.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">Newsletter</span>
+            <span class="card-tag">Authority</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL 2 -->
+    <div class="portfolio-card reveal" data-category="social" onclick="openModal('social2')">
+      <div class="card-header" data-icon="📱">
+        <div class="card-category">Social Media · Instagram</div>
+        <div class="card-title">Instagram Caption Pack for a Fashion Brand</div>
+        <div class="card-industry">Fashion & Lifestyle</div>
+      </div>
+      <div class="card-body">
+        <p class="card-excerpt">30 Instagram captions crafted for a sustainable fashion label — each one written to stop the scroll, reflect the brand's bold personality, and nudge followers toward the link in bio without ever sounding salesy.</p>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="card-tag">30 Captions</span>
+            <span class="card-tag">Instagram</span>
+          </div>
+          <span class="card-read">Read Sample</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-close"><button class="close-btn" onclick="closeModal()">✕</button></div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <a class="logo-text" href="writerise.html" style="text-decoration:none;">WRITE <span>RISE</span><small>AGENCY</small></a>
+    </div>
+    <div class="footer-links-row">
+      <a href="writerise.html#services">Services</a>
+      <a href="writerise.html#process">Process</a>
+      <a href="writerise.html#why">Why Us</a>
+      <a href="mailto:writerisehq@gmail.com">Contact</a>
+    </div>
+    <button class="btn-primary" onclick="window.location.href='mailto:writerisehq@gmail.com?subject=Get a Quote'">Get a Quote</button>
+  </div>
+  <div class="footer-copy">© 2026 Write Rise Agency. All rights reserved.</div>
+</footer>
+
+<script>
+// NAV SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// FILTER
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.style.display = match ? 'flex' : 'none';
+    });
+  });
+});
+
+// MODAL CONTENT
+const modals = {
+  blog1: {
+    category: 'Blog Article · SEO',
+    title: '10 SaaS Onboarding Mistakes That Kill Retention',
+    industry: 'Technology & SaaS',
+    icon: '📝',
+    wordCount: '2,400 words',
+    type: 'Long-Form SEO Blog',
+    content: `
+      <h3>Introduction</h3>
+      <p>You spent months building your product. You ran ads, wrote cold emails, and finally got people to sign up. Then they disappeared.</p>
+      <p>If your trial-to-paid conversion rate is below 25%, the problem almost certainly isn't your product. It's your onboarding. Here are the 10 mistakes that silently drain SaaS retention — and exactly how to fix them.</p>
+      <blockquote>"The first 7 days after signup are worth more than any retention campaign you'll ever run."</blockquote>
+      <h3>Mistake #1: Asking Too Much, Too Soon</h3>
+      <p>Most SaaS welcome flows open with a wall of questions — company size, use case, team structure, billing cycle. Before the user has experienced a single moment of value, you've already made them work. The result? Drop-off before they've even seen your product's core feature.</p>
+      <p>Fix: Collect only the data you need to personalize the first experience. Ask one question. Then get them to their "aha moment" as fast as possible.</p>
+      <h3>Mistake #2: No Defined "Aha Moment"</h3>
+      <p>Every great SaaS product has a moment when the user truly gets it — when the value clicks. For Slack, it's the first real-time message with a teammate. For Canva, it's finishing their first designed graphic. If you haven't mapped this moment for your product, your onboarding has no north star.</p>
+      <ul>
+        <li>Map the exact action that correlates with long-term retention</li>
+        <li>Build every onboarding step to funnel toward that action</li>
+        <li>Measure time-to-aha and optimize relentlessly</li>
+      </ul>
+      <h3>Mistake #3: Over-relying on Product Tours</h3>
+      <p>Product tours feel thorough. They're also largely ignored. Research shows that most users skip interactive walkthroughs after the first few steps — especially on mobile. A checklist-based approach that rewards progress outperforms a passive tour almost every time.</p>
+    `
+  },
+  copy1: {
+    category: 'Copywriting · Sales Page',
+    title: 'Landing Page for a B2B Finance Tool',
+    industry: 'Finance & Fintech',
+    icon: '✒',
+    wordCount: '900 words',
+    type: 'Sales Page Copy',
+    content: `
+      <h3>Hero Section</h3>
+      <p><strong>Stop Losing Hours to Manual Reconciliation.</strong></p>
+      <p>FinSync automates your month-end close in minutes — not days. Built for finance teams who have more important problems to solve.</p>
+      <p><em>[CTA: Start Free 14-Day Trial — No Card Required]</em></p>
+      <blockquote>"We cut our month-end close from 4 days to 6 hours. FinSync paid for itself in week one." — CFO, Series B SaaS Company</blockquote>
+      <h3>Problem Section</h3>
+      <p>Finance teams at growing companies share the same nightmare: spreadsheets that break, reconciliations that take all weekend, and an audit trail that's one misplaced file away from disaster.</p>
+      <p>You didn't spend years building financial expertise to spend your Fridays copy-pasting rows between Excel sheets. Yet here you are.</p>
+      <h3>Solution Section</h3>
+      <p>FinSync connects directly to your ERP, bank feeds, and payment processors. It flags discrepancies in real time, auto-matches transactions with 98.7% accuracy, and generates audit-ready reports at the click of a button.</p>
+      <ul>
+        <li>Automated reconciliation across all accounts and entities</li>
+        <li>Real-time discrepancy alerts before they become problems</li>
+        <li>One-click audit trail export in any format your auditors need</li>
+        <li>Role-based access so your team works without stepping on each other</li>
+      </ul>
+      <h3>Closing CTA</h3>
+      <p>Join 2,400+ finance teams who closed their last quarter without a single weekend sacrificed. Your free trial takes 4 minutes to set up.</p>
+    `
+  },
+  web1: {
+    category: 'Website Content · Homepage',
+    title: 'Homepage & About Page — Wellness Brand',
+    industry: 'Healthcare & Wellness',
+    icon: '🌐',
+    wordCount: '1,100 words',
+    type: 'Web Copy',
+    content: `
+      <h3>Homepage — Hero</h3>
+      <p><strong>Wellness That Actually Works With Your Life.</strong></p>
+      <p>No protocols. No perfection. Just evidence-backed habits, personalised to you — so you can feel like yourself again.</p>
+      <h3>Homepage — Brand Belief</h3>
+      <p>We believe wellness shouldn't feel like another job. The best routine isn't the most intense one — it's the one you can actually keep. Revive was built on that principle: real science, made human.</p>
+      <blockquote>"We're not here to sell you a transformation. We're here to help you build one, quietly and consistently, on your own terms."</blockquote>
+      <h3>About Page — Founder Story</h3>
+      <p>Our founder spent three years working with clinical nutritionists and sleep researchers before launching Revive. Not because she wanted to build a wellness brand — but because she couldn't find one she actually trusted.</p>
+      <p>Every product we make starts with a question: would we give this to someone we love? If the answer isn't an immediate yes, it goes back to the lab. That's not a marketing line. It's the only standard we know how to work to.</p>
+      <h3>About Page — Values</h3>
+      <ul>
+        <li><strong>Honest ingredients.</strong> We list everything. No proprietary blends, no hidden fillers.</li>
+        <li><strong>Grounded in evidence.</strong> Every claim is backed by peer-reviewed research we can show you.</li>
+        <li><strong>Made for real people.</strong> We design for the person with a full life — not a full supplement cabinet.</li>
+      </ul>
+    `
+  },
+  email1: {
+    category: 'Email Campaign · Welcome Sequence',
+    title: '5-Part Welcome Sequence — E-Commerce Brand',
+    industry: 'E-Commerce & Retail',
+    icon: '📧',
+    wordCount: '5 emails · ~200 words each',
+    type: 'Email Sequence',
+    content: `
+      <h3>Email 1 — Welcome (Sent immediately)</h3>
+      <p><strong>Subject: You're in. Here's what happens next.</strong></p>
+      <p>Welcome to the Ember community. You didn't just buy a candle — you chose to make your space feel like somewhere you actually want to be. We think that matters.</p>
+      <p>Over the next few days, we'll share how Ember started, how we make our candles differently, and why customers who've been with us since year one still re-order every month.</p>
+      <p>Your order is already being prepared. You'll get a shipping update within 24 hours.</p>
+      <blockquote>"The best part of this job is knowing someone will light one of our candles tonight and feel exactly what we felt when we made it." — Founder, Ember</blockquote>
+      <h3>Email 3 — Social Proof (Day 4)</h3>
+      <p><strong>Subject: What 4,000 customers said about their first Ember.</strong></p>
+      <p>We asked our community one question: what did you notice first? The answers surprised even us. Most people didn't mention the scent first. They mentioned how the room felt — quieter, somehow. More like theirs.</p>
+      <p>Here's what they said in their own words...</p>
+      <h3>Email 5 — Re-order Prompt (Day 10)</h3>
+      <p><strong>Subject: Your candle has about 40 hours left.</strong></p>
+      <p>A 200g Ember candle burns for roughly 45 hours. If you've been burning yours daily, you're getting close to the end. Now's the perfect time to pick your next scent — before you're left with an empty jar and a room that doesn't smell right.</p>
+    `
+  },
+  social1: {
+    category: 'Social Media · LinkedIn',
+    title: 'LinkedIn Thought Leadership Pack — B2B CEO',
+    industry: 'B2B Services',
+    icon: '📱',
+    wordCount: '12 posts',
+    type: 'LinkedIn Copy',
+    content: `
+      <h3>Post 1 — Personal Story Hook</h3>
+      <p>I lost my biggest client on a Tuesday afternoon in 2019.</p>
+      <p>Not because of the work. Not because of the price. Because I had stopped making them feel like they mattered.</p>
+      <p>I sent the same check-in email I sent every client. They noticed. Six months later, so did I — when the contract renewal didn't come.</p>
+      <p>The lesson I learned cost me £80k. Here it is for free:</p>
+      <p>Retention isn't a system. It's a feeling. Build the feeling first, then build the system around it.</p>
+      <blockquote>What's one client relationship you should probably nurture this week?</blockquote>
+      <h3>Post 5 — Contrarian Take</h3>
+      <p>Hot take: most B2B agencies are solving the wrong problem.</p>
+      <p>Clients don't leave because of bad deliverables. They leave because of bad communication. In 11 years running an agency, I can count on one hand the clients who left over quality.</p>
+      <p>I can't count the ones who left because they felt kept in the dark.</p>
+      <p>Radical transparency isn't a nice-to-have. It's the entire product.</p>
+      <h3>Post 9 — Quick Value List</h3>
+      <p>5 things I wish someone told me before I hired my first employee:</p>
+      <p>1. Culture starts at employee #1, not employee #10<br>2. Hire for energy, train for skill<br>3. Your onboarding reflects your values<br>4. Feedback delayed is feedback denied<br>5. People leave managers, not companies — and you're the manager</p>
+      <p>Which one hit different?</p>
+    `
+  },
+  wp1: {
+    category: 'Whitepaper · B2B Report',
+    title: 'The Future of Remote Work: 2025 Enterprise Playbook',
+    industry: 'Technology & SaaS',
+    icon: '📄',
+    wordCount: '14 pages · ~4,200 words',
+    type: 'Lead Gen Whitepaper',
+    content: `
+      <h3>Executive Summary</h3>
+      <p>The remote-first experiment is over. What replaced it is more complex, more human, and far more consequential for enterprise leaders than any blanket return-to-office policy will ever be.</p>
+      <p>This playbook synthesises findings from 1,200 enterprise employees across 14 industries, 40 hours of executive interviews, and three years of post-pandemic workplace data. It is a practical guide — not a prediction — for HR directors, COOs, and operations leaders navigating the new reality of distributed work.</p>
+      <blockquote>"The companies winning on talent in 2025 aren't the ones with the best offices. They're the ones with the clearest agreements." — VP of People, Fortune 500 Tech Company</blockquote>
+      <h3>Key Finding #1: Flexibility Is Now a Baseline, Not a Benefit</h3>
+      <p>78% of knowledge workers surveyed ranked schedule flexibility above a 10% salary increase when evaluating job offers. For employers, this is no longer a differentiator — it is table stakes. The question has shifted from "do we offer flexibility?" to "what kind, and how do we structure it without losing cohesion?"</p>
+      <h3>Key Finding #2: Proximity Bias Is the Hidden Retention Risk</h3>
+      <p>In hybrid environments where some employees are in-office and others are remote, promotion rates for in-office staff are 31% higher — even when performance metrics are equal. This proximity bias is the single largest unaddressed equity issue in enterprise talent strategy today.</p>
+      <ul>
+        <li>Document promotion criteria explicitly and make them visible to all employees</li>
+        <li>Audit your last 12 months of promotions against remote vs. in-office status</li>
+        <li>Train managers on structured performance evaluation that removes proximity as a variable</li>
+      </ul>
+      <h3>The Playbook: 6 Frameworks for 2025</h3>
+      <p>The following section outlines six actionable frameworks for enterprise teams ready to move from reactive flexibility to intentional distributed work design — covering async communication protocols, outcome-based performance management, digital culture architecture, and more...</p>
+    `
+  },
+  blog2: {
+    category: 'Blog Article · Thought Leadership',
+    title: 'Why Most Real Estate Brands Sound Exactly the Same',
+    industry: 'Real Estate',
+    icon: '📝',
+    wordCount: '1,800 words',
+    type: 'Opinion Piece',
+    content: `
+      <h3>Opening</h3>
+      <p>Open any real estate agency website and play a game. Count how many times you see the words "trusted," "experienced," "results-driven," or "your home is our priority."</p>
+      <p>I'll wait.</p>
+      <p>Every agency sounds like every other agency — because everyone is copying each other, and no one is brave enough to say something real. The result is a market where the only differentiator left is price, and everyone loses.</p>
+      <blockquote>"Bland is the most expensive brand strategy in real estate. It just takes a while to get the bill."</blockquote>
+      <h3>The Sameness Problem</h3>
+      <p>The real estate industry has a collective identity crisis. Decades of the same stock photography (smiling couple outside a house), the same value propositions (we know the market, we fight for you), and the same beige website palettes have compressed the entire sector into one forgettable blob of professionalism.</p>
+      <p>And the tragedy is: most agencies are genuinely different. They have real stories, distinct processes, actual personalities. But those things never make it to the website, the listings, or the pitch deck.</p>
+      <h3>What Differentiation Actually Looks Like</h3>
+      <p>The agencies that break through the noise do one thing the rest don't: they have a genuine point of view. Not a "mission statement." A perspective — on the market, on buyers, on what actually makes a transaction go well.</p>
+      <ul>
+        <li>One boutique agency in Edinburgh built their brand entirely around radical honesty — including listing the things they won't do for a sale</li>
+        <li>A London commercial agent became the go-to for tech startups by writing weekly commentary on the relationship between office design and company culture</li>
+        <li>A residential agency in Brisbane started publishing "anti-listing" content — showing properties they passed on, and why</li>
+      </ul>
+      <p>None of these are expensive strategies. All of them are brave ones.</p>
+    `
+  },
+  email2: {
+    category: 'Email Campaign · Newsletter',
+    title: 'Monthly Newsletter — Legal Tech Startup',
+    industry: 'Legal & Law',
+    icon: '📧',
+    wordCount: 'Monthly · ~600 words per edition',
+    type: 'Authority Newsletter',
+    content: `
+      <h3>Newsletter Edition — "The Clause" · March 2025</h3>
+      <p><strong>Subject: The contract clause every startup ignores (until it's too late)</strong></p>
+      <p>Welcome back to The Clause — the monthly read for founders and legal ops teams who want to stay ahead of the agreements that run their business.</p>
+      <p>This month: the limitation of liability clause, why most founders sign away protections they don't know they had, and three questions to ask before you countersign anything above £50k.</p>
+      <blockquote>"A contract isn't a formality. It's the document everyone ignores until everything goes wrong."</blockquote>
+      <h3>The Issue This Month</h3>
+      <p>Limitation of liability (LOL) clauses are the most under-negotiated terms in commercial contracts. In a standard vendor agreement, the default clause often caps a supplier's liability at the total contract value — meaning if a £10k software subscription causes you £500k in losses, you're recovering £10k.</p>
+      <p>Most startups sign these without a second look. Here's what to look for instead:</p>
+      <ul>
+        <li>Is liability capped symmetrically, or only in one direction?</li>
+        <li>Are consequential losses excluded? (They almost always are — and that's where the real risk lives)</li>
+        <li>Does the clause carve out fraud, wilful misconduct, or data breaches?</li>
+      </ul>
+      <h3>Product Note (Soft)</h3>
+      <p>ClearSign's contract review tool flags limitation of liability clauses automatically — and benchmarks them against 40,000 commercial agreements in our database so you can see, instantly, whether the terms you're being offered are market standard or wildly one-sided. Worth a look before your next renewal.</p>
+    `
+  },
+  social2: {
+    category: 'Social Media · Instagram',
+    title: 'Instagram Caption Pack — Fashion Brand',
+    industry: 'Fashion & Lifestyle',
+    icon: '📱',
+    wordCount: '30 captions',
+    type: 'Instagram Copy',
+    content: `
+      <h3>Caption Set — New Collection Drop</h3>
+      <p><strong>Post 1 (Teaser, 3 days before launch):</strong></p>
+      <p>Something slow is coming. And it's worth the wait. 🌿 [tag a friend who appreciates the quiet ones]</p>
+      <p><strong>Post 2 (Launch day):</strong></p>
+      <p>The Linen Edit is here. Made from 100% certified European linen. No elastane. No compromise. Designed for the person who buys once, wears forever. Shop via link in bio — sizes are limited and we don't restock. ↑</p>
+      <blockquote>"We make things slowly so you don't have to replace them quickly."</blockquote>
+      <h3>Caption Set — Brand Values</h3>
+      <p><strong>Post 7 (Behind the scenes):</strong></p>
+      <p>Our production run this season: 200 units per style. That's it. Not because we can't make more — because we refuse to. Fashion that floods the market trains people to see clothing as disposable. Ours isn't. Yours shouldn't be either.</p>
+      <p><strong>Post 12 (Community):</strong></p>
+      <p>Reworn for the 47th time. This is what we mean when we say "investment piece." Drop a 🌿 if yours has a story too.</p>
+      <h3>Caption Set — Product Feature</h3>
+      <p><strong>Post 18 (The detail shot):</strong></p>
+      <p>The seams. The stitching. The way the hem falls. These are the things you notice on month six, not day one. That's the point.</p>
+    `
+  }
+};
+
+function openModal(id) {
+  const data = modals[id];
+  if (!data) return;
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-hero" data-icon="${data.icon}">
+      <div class="modal-category">${data.category}</div>
+      <div class="modal-title">${data.title}</div>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><strong>Industry</strong>${data.industry}</div>
+        <div class="modal-meta-item"><strong>Length</strong>${data.wordCount}</div>
+        <div class="modal-meta-item"><strong>Type</strong>${data.type}</div>
+      </div>
+    </div>
+    <div class="modal-body">
+      ${data.content}
+      <div class="modal-cta">
+        <p>Want content like this for your brand? We'll write your first piece completely free — no commitment required.</p>
+        <a class="btn-primary" href="mailto:writerisehq@gmail.com?subject=I saw your portfolio - let's talk">Get a Free Sample →</a>
+      </div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

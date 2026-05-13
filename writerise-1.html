@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Write Rise Agency – Words That Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-deep: #0f1a30;
+    --navy-mid: #243156;
+    --gold: #b8962e;
+    --gold-light: #d4af5a;
+    --gold-pale: #f0e6c8;
+    --cream: #faf8f3;
+    --white: #ffffff;
+    --text-muted: #7a8399;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 6%;
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+    transition: all .3s ease;
+  }
+  nav.scrolled { padding: 12px 6%; box-shadow: 0 4px 30px rgba(26,39,68,0.08); }
+
+  .nav-logo img { height: 54px; width: auto; }
+
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700; letter-spacing: 2px;
+    color: var(--navy-deep); line-height: 1;
+    display: flex; flex-direction: column;
+  }
+  .logo-text span { color: var(--gold); }
+  .logo-text small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px; font-weight: 700; letter-spacing: 4px;
+    color: var(--text-muted); text-transform: uppercase; margin-top: 2px;
+  }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--navy);
+    text-decoration: none; position: relative;
+    transition: color .3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--gold);
+    transition: width .3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--navy); color: var(--white);
+    padding: 11px 26px; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; transition: all .3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .nav-cta:hover { background: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy-deep);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 120px 6% 80px;
+  }
+
+  /* decorative background lines */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 79px,
+        rgba(184,150,46,0.06) 80px
+      );
+  }
+  .hero-grain {
+    position: absolute; inset: 0; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 760px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(184,150,46,0.12);
+    border: 1px solid rgba(184,150,46,0.3);
+    padding: 7px 18px; margin-bottom: 36px;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-badge span { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); }
+  .hero-badge i { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; display: inline-block; }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 700; line-height: 1.0;
+    color: var(--white);
+    animation: fadeUp .8s .15s ease both;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: italic; }
+
+  .hero-sub {
+    font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.55);
+    max-width: 520px; margin-top: 28px; font-weight: 300; letter-spacing: .3px;
+    animation: fadeUp .8s .3s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 18px; margin-top: 50px; flex-wrap: wrap;
+    animation: fadeUp .8s .45s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold); color: var(--navy-deep);
+    padding: 16px 40px; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; transition: all .3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    padding: 15px 38px;
+    border: 1px solid rgba(255,255,255,0.25); cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; transition: all .3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    position: absolute; bottom: 60px; right: 6%;
+    display: flex; gap: 50px;
+    animation: fadeUp .8s .6s ease both;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 700; color: var(--white); line-height: 1;
+  }
+  .stat-num span { color: var(--gold-light); }
+  .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--gold); padding: 14px 0; overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 60px;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--navy-deep);
+    display: flex; align-items: center; gap: 20px;
+  }
+  .marquee-item::after { content: '✦'; color: var(--navy-deep); font-size: 8px; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 120px 6%;
+    background: var(--cream);
+  }
+
+  .section-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4.5vw, 62px);
+    font-weight: 700; line-height: 1.1; color: var(--navy-deep);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .services-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 72px; gap: 40px; flex-wrap: wrap;
+  }
+  .services-intro {
+    font-size: 14px; line-height: 1.9; color: var(--text-muted);
+    max-width: 380px; font-weight: 300;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--white); padding: 48px 40px;
+    position: relative; overflow: hidden;
+    cursor: default; transition: all .4s ease;
+    border-bottom: 3px solid transparent;
+  }
+  .service-card:hover {
+    background: var(--navy-deep);
+    border-bottom-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .service-card:hover .service-num,
+  .service-card:hover .service-title,
+  .service-card:hover .service-desc { color: var(--white); }
+  .service-card:hover .service-icon { border-color: var(--gold); color: var(--gold); }
+  .service-card:hover .service-tag { background: rgba(184,150,46,0.15); color: var(--gold-light); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 2px;
+    color: var(--gold); margin-bottom: 28px;
+    transition: color .4s;
+  }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    border: 1.5px solid var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 24px;
+    transition: all .4s; color: var(--navy);
+  }
+
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 700; line-height: 1.2;
+    color: var(--navy-deep); margin-bottom: 14px;
+    transition: color .4s;
+  }
+
+  .service-desc {
+    font-size: 13px; line-height: 1.85; color: var(--text-muted);
+    font-weight: 300; transition: color .4s;
+  }
+
+  .service-tags { display: flex; gap: 8px; margin-top: 28px; flex-wrap: wrap; }
+  .service-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 5px 12px;
+    background: var(--cream); color: var(--navy);
+    transition: all .4s;
+  }
+
+  /* ── HOW WE WORK ── */
+  .process {
+    padding: 120px 6%;
+    background: var(--navy-deep);
+    position: relative; overflow: hidden;
+  }
+  .process::before {
+    content: '"';
+    position: absolute; top: -30px; right: 5%;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 500px; font-weight: 700; line-height: 1;
+    color: rgba(184,150,46,0.04);
+    pointer-events: none; user-select: none;
+  }
+
+  .process .section-title { color: var(--white); margin-bottom: 80px; }
+  .process .section-eyebrow { color: var(--gold-light); }
+
+  .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; }
+
+  .process-step {
+    padding: 50px 40px;
+    border-left: 1px solid rgba(184,150,46,0.15);
+    position: relative;
+    transition: background .4s;
+  }
+  .process-step:first-child { border-left: none; }
+  .process-step:hover { background: rgba(184,150,46,0.05); }
+
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; font-weight: 700; line-height: 1;
+    color: rgba(184,150,46,0.2); margin-bottom: 24px;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--white); margin-bottom: 12px;
+  }
+
+  .step-desc { font-size: 12px; line-height: 1.85; color: rgba(255,255,255,0.45); font-weight: 300; }
+
+  .step-line {
+    width: 30px; height: 2px; background: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  /* ── WHY US ── */
+  .why-us {
+    padding: 120px 6%;
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .why-visual {
+    position: relative;
+  }
+
+  .why-card-big {
+    background: var(--navy); padding: 56px 52px;
+    position: relative; overflow: hidden;
+  }
+  .why-card-big::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 40px solid rgba(184,150,46,0.1);
+  }
+
+  .wc-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .wc-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; font-weight: 700; color: var(--white); line-height: 1;
+  }
+  .wc-value span { color: var(--gold-light); }
+  .wc-desc { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; line-height: 1.7; }
+
+  .why-card-small {
+    background: var(--gold); padding: 32px 36px;
+    margin-top: 3px;
+  }
+  .wcs-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 6px; }
+  .wcs-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 700; color: var(--navy-deep); line-height: 1;
+  }
+  .wcs-desc { font-size: 12px; color: rgba(26,39,68,0.7); margin-top: 6px; }
+
+  .why-content {}
+  .why-content .section-title { margin-bottom: 24px; }
+  .why-lead { font-size: 15px; line-height: 1.85; color: var(--text-muted); font-weight: 300; margin-bottom: 48px; }
+
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 24px; }
+  .why-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(26,39,68,0.08);
+  }
+  .why-item:last-child { border-bottom: none; }
+
+  .why-icon {
+    width: 40px; height: 40px; background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .why-text h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 700; color: var(--navy-deep); margin-bottom: 5px;
+  }
+  .why-text p { font-size: 12px; color: var(--text-muted); line-height: 1.8; }
+
+  /* ── INDUSTRIES ── */
+  .industries {
+    padding: 100px 6%;
+    background: var(--navy-deep);
+    text-align: center;
+  }
+  .industries .section-eyebrow { color: var(--gold-light); }
+  .industries .section-title { color: var(--white); margin-bottom: 56px; }
+
+  .industry-pills {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: center; max-width: 900px; margin: 0 auto;
+  }
+
+  .pill {
+    padding: 12px 28px;
+    border: 1px solid rgba(184,150,46,0.25);
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+    cursor: default; transition: all .3s;
+  }
+  .pill:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,150,46,0.08); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { padding: 120px 6%; background: var(--cream); }
+  .testimonials .section-title { text-align: center; margin-bottom: 64px; }
+  .testimonials .section-eyebrow { text-align: center; }
+
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3px; }
+
+  .testi-card {
+    background: var(--white); padding: 48px 40px;
+    position: relative; transition: all .3s;
+  }
+  .testi-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(26,39,68,0.08); }
+  .testi-card:nth-child(2) { background: var(--navy-deep); }
+  .testi-card:nth-child(2) .testi-quote,
+  .testi-card:nth-child(2) .testi-name { color: var(--white); }
+  .testi-card:nth-child(2) .testi-role { color: rgba(255,255,255,0.5); }
+  .testi-card:nth-child(2) .testi-stars { color: var(--gold-light); }
+  .testi-card:nth-child(2) .testi-mark { color: rgba(184,150,46,0.2); }
+
+  .testi-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px; line-height: .7; color: var(--gold-pale);
+    margin-bottom: 16px;
+  }
+  .testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 18px; }
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px; font-weight: 400; font-style: italic;
+    line-height: 1.55; color: var(--navy-deep); margin-bottom: 28px;
+  }
+  .testi-divider { width: 30px; height: 1.5px; background: var(--gold); margin-bottom: 18px; }
+  .testi-name { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--navy-deep); }
+  .testi-role { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--navy-deep); padding: 120px 6%;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(184,150,46,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-eyebrow { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5.5vw, 80px);
+    font-weight: 700; color: var(--white); line-height: 1.1;
+    margin-bottom: 30px;
+  }
+  .cta-title em { color: var(--gold-light); font-style: italic; }
+  .cta-sub { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 52px; font-weight: 300; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f1e; padding: 70px 6% 30px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px; margin-bottom: 60px;
+  }
+  .footer-brand img { height: 52px; margin-bottom: 20px; }
+  .footer-brand p {
+    font-size: 12px; line-height: 1.85; color: rgba(255,255,255,0.35);
+    font-weight: 300;
+  }
+  .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(184,150,46,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    cursor: pointer; transition: all .3s; text-decoration: none;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  .footer-col h5 {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 24px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a {
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    text-decoration: none; transition: color .3s; font-weight: 300;
+  }
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 28px; display: flex;
+    justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+  .footer-legal { display: flex; gap: 28px; }
+  .footer-legal a {
+    font-size: 11px; color: rgba(255,255,255,0.25);
+    text-decoration: none; transition: color .3s;
+  }
+  .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav .nav-links { display: none; }
+    .why-us { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .hero-stats { position: static; margin-top: 60px; justify-content: flex-start; }
+  }
+  @media (max-width: 600px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 30px; }
+    .stat { text-align: left; }
+    .services-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location.href='mailto:writerisehq@gmail.com?subject=Get a Quote – Write Rise Agency'">Get a Quote</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i></i>
+      <span>New Agency · Founding Client Rates Available</span>
+    </div>
+    <h1>Words That<br><em>Elevate</em><br>Brands</h1>
+    <p class="hero-sub">We craft compelling content, persuasive copy, and authoritative articles that transform readers into loyal customers — and brands into industry leaders.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="window.location.href='mailto:writerisehq@gmail.com?subject=Start a Project – Write Rise Agency'">Start a Project</button>
+      <button class="btn-ghost" onclick="window.location.href='portfolio.html'">View Our Work</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">48<span>hr</span></div>
+      <div class="stat-label">Turnaround Time</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Free Revisions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">Satisfaction Guarantee</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Content Writing</div>
+    <div class="marquee-item">Copywriting</div>
+    <div class="marquee-item">Blog Articles</div>
+    <div class="marquee-item">SEO Content</div>
+    <div class="marquee-item">Brand Storytelling</div>
+    <div class="marquee-item">Email Campaigns</div>
+    <div class="marquee-item">Web Copy</div>
+    <div class="marquee-item">Social Media Content</div>
+    <div class="marquee-item">Whitepapers</div>
+    <div class="marquee-item">Press Releases</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item">Content Writing</div>
+    <div class="marquee-item">Copywriting</div>
+    <div class="marquee-item">Blog Articles</div>
+    <div class="marquee-item">SEO Content</div>
+    <div class="marquee-item">Brand Storytelling</div>
+    <div class="marquee-item">Email Campaigns</div>
+    <div class="marquee-item">Web Copy</div>
+    <div class="marquee-item">Social Media Content</div>
+    <div class="marquee-item">Whitepapers</div>
+    <div class="marquee-item">Press Releases</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <p class="section-eyebrow">What We Do</p>
+      <h2 class="section-title">Content that<br><em>Converts</em></h2>
+    </div>
+    <p class="services-intro">Every word we write is intentional. From blog posts that dominate search to copy that closes deals — we are your strategic writing partner.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-icon">✒</div>
+      <h3 class="service-title">Expert Copywriting</h3>
+      <p class="service-desc">Persuasive copy that speaks directly to your audience's desires and drives measurable action — from landing pages to full sales funnels.</p>
+      <div class="service-tags">
+        <span class="service-tag">Sales Pages</span>
+        <span class="service-tag">Ad Copy</span>
+        <span class="service-tag">Funnels</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <div class="service-icon">📝</div>
+      <h3 class="service-title">Blogs & Articles</h3>
+      <p class="service-desc">Research-backed, SEO-optimized long-form content that establishes authority, drives organic traffic, and keeps readers engaged.</p>
+      <div class="service-tags">
+        <span class="service-tag">SEO Blogs</span>
+        <span class="service-tag">Thought Leadership</span>
+        <span class="service-tag">Guides</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <div class="service-icon">🌐</div>
+      <h3 class="service-title">Website Content</h3>
+      <p class="service-desc">Cohesive, conversion-focused web copy that tells your brand story, communicates value, and compels visitors to take the next step.</p>
+      <div class="service-tags">
+        <span class="service-tag">Homepage</span>
+        <span class="service-tag">About Page</span>
+        <span class="service-tag">Service Pages</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <div class="service-icon">📧</div>
+      <h3 class="service-title">Email Campaigns</h3>
+      <p class="service-desc">Strategic email sequences and newsletters that nurture relationships, build trust, and drive revenue from your subscriber list.</p>
+      <div class="service-tags">
+        <span class="service-tag">Sequences</span>
+        <span class="service-tag">Newsletters</span>
+        <span class="service-tag">Automations</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <div class="service-icon">📱</div>
+      <h3 class="service-title">Social Media Copy</h3>
+      <p class="service-desc">Scroll-stopping captions, posts, and profiles that build community, grow engagement, and authentically represent your brand voice.</p>
+      <div class="service-tags">
+        <span class="service-tag">LinkedIn</span>
+        <span class="service-tag">Instagram</span>
+        <span class="service-tag">Twitter/X</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <div class="service-icon">📄</div>
+      <h3 class="service-title">Whitepapers & Reports</h3>
+      <p class="service-desc">In-depth, credibility-building documents that showcase your expertise and generate high-quality leads in B2B markets.</p>
+      <div class="service-tags">
+        <span class="service-tag">Research Reports</span>
+        <span class="service-tag">Case Studies</span>
+        <span class="service-tag">eBooks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <p class="section-eyebrow">How We Work</p>
+  <h2 class="section-title" style="color:var(--white); margin-bottom:80px; max-width:500px;">A process built<br><em style="color:var(--gold-light)">for results</em></h2>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-number">01</div>
+      <div class="step-line"></div>
+      <h4 class="step-title">Discovery & Brief</h4>
+      <p class="step-desc">We dive deep into your brand, audience, goals, and competitive landscape to build a strategic content foundation.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-number">02</div>
+      <div class="step-line"></div>
+      <h4 class="step-title">Research & Strategy</h4>
+      <p class="step-desc">We research keywords, study your audience's language, and map the content strategy that aligns with your business objectives.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-number">03</div>
+      <div class="step-line"></div>
+      <h4 class="step-title">Craft & Write</h4>
+      <p class="step-desc">Our expert writers create content that's polished, on-brand, and purposefully structured for maximum impact and readability.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-number">04</div>
+      <div class="step-line"></div>
+      <h4 class="step-title">Review & Refine</h4>
+      <p class="step-desc">We collaborate closely with you through revisions until the content perfectly reflects your vision and exceeds expectations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us" id="why">
+  <div class="why-visual reveal">
+    <div class="why-card-big">
+      <div class="wc-label">Our Promise To You</div>
+      <div class="wc-value">Zero<span style="font-size:40px; font-style:italic"> Risk</span></div>
+      <div class="wc-desc">Not satisfied with the first draft? We rewrite it completely — free of charge, no questions asked. Your investment is always protected.</div>
+    </div>
+    <div class="why-card-small">
+      <div class="wcs-label">Turnaround Guarantee</div>
+      <div class="wcs-value">48<span style="font-size:28px">hr</span></div>
+      <div class="wcs-desc">Fast delivery without cutting corners. Deadlines are sacred here.</div>
+    </div>
+  </div>
+
+  <div class="why-content reveal">
+    <p class="section-eyebrow">Why Write Rise</p>
+    <h2 class="section-title">Writing is our<br><em>craft,</em> not a template</h2>
+    <p class="why-lead">We don't churn content — we craft it. Every piece carries strategic intent, careful research, and a writer who genuinely understands your world.</p>
+
+    <ul class="why-list">
+      <li class="why-item">
+        <div class="why-icon">🎯</div>
+        <div class="why-text">
+          <h4>Strategy-First Approach</h4>
+          <p>Every word serves a purpose. We align content with your business goals and buyer journey at every stage.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-icon">🔬</div>
+        <div class="why-text">
+          <h4>Deep Research, Always</h4>
+          <p>We study your niche, competitors, and audience before a single word is written — so what we create resonates deeply.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-icon">🏆</div>
+        <div class="why-text">
+          <h4>Specialist Writers</h4>
+          <p>Matched writers with real industry expertise — no generalists, no mediocre output, no compromises.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-icon">🔄</div>
+        <div class="why-text">
+          <h4>Unlimited Revisions</h4>
+          <p>We refine until it's right. Your satisfaction is non-negotiable, and we stand behind every piece we produce.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries">
+  <p class="section-eyebrow">Industries We Serve</p>
+  <h2 class="section-title">We write across <em style="color:var(--gold-light)">every</em> sector</h2>
+  <div class="industry-pills reveal">
+    <div class="pill">Technology & SaaS</div>
+    <div class="pill">Finance & Fintech</div>
+    <div class="pill">Healthcare & Wellness</div>
+    <div class="pill">E-commerce & Retail</div>
+    <div class="pill">Real Estate</div>
+    <div class="pill">Legal & Law</div>
+    <div class="pill">Education & EdTech</div>
+    <div class="pill">Travel & Hospitality</div>
+    <div class="pill">Fashion & Lifestyle</div>
+    <div class="pill">Marketing & Advertising</div>
+    <div class="pill">Startups</div>
+    <div class="pill">B2B Services</div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS / SOCIAL PROOF -->
+<section class="testimonials" id="testimonials">
+  <p class="section-eyebrow" style="text-align:center">Our Commitment</p>
+  <h2 class="section-title" style="text-align:center">Fresh agency.<br><em>Uncompromising</em> quality.</h2>
+  <p style="text-align:center; max-width:560px; margin: 0 auto 64px; font-size:14px; color:var(--text-muted); font-weight:300; line-height:1.85;">We're a new agency — and we're honest about that. What we bring is fresh passion, meticulous craft, and guarantees that remove every ounce of risk from working with us.</p>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal" style="border-top: 3px solid var(--gold);">
+      <div class="testi-mark" style="font-size:48px; color:var(--gold);">✦</div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:var(--navy-deep); margin-bottom:14px;">Full Money-Back Guarantee</h3>
+      <p class="testi-quote" style="font-size:15px; font-style:normal;">If you're not completely happy with the final content after revisions, you don't pay. Simple as that. We believe our work should speak for itself — and we back that with a real promise.</p>
+      <div class="testi-divider"></div>
+      <div class="testi-name">Zero Risk to You</div>
+    </div>
+
+    <div class="testi-card reveal" style="background:var(--navy-deep); border-top: 3px solid var(--gold);">
+      <div class="testi-mark" style="font-size:48px; color:rgba(184,150,46,0.3);">✦</div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:var(--white); margin-bottom:14px;">Be Among Our First Clients</h3>
+      <p class="testi-quote" style="font-size:15px; font-style:normal; color:rgba(255,255,255,0.7);">Early clients get our absolute best — over-delivered, obsessively refined, and treated like partners. We're building our reputation one piece at a time, and yours will be a masterpiece.</p>
+      <div class="testi-divider"></div>
+      <div class="testi-name" style="color:var(--white);">Founding Client Offer</div>
+      <div class="testi-role">Priority access · Special introductory rates</div>
+    </div>
+
+    <div class="testi-card reveal" style="border-top: 3px solid var(--gold);">
+      <div class="testi-mark" style="font-size:48px; color:var(--gold);">✦</div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:var(--navy-deep); margin-bottom:14px;">Free Trial Article</h3>
+      <p class="testi-quote" style="font-size:15px; font-style:normal;">Not ready to commit? Let us write you one article completely free. No credit card, no obligation — just a sample of the quality we'll bring to your brand, every single time.</p>
+      <div class="testi-divider"></div>
+      <div class="testi-name">Try Before You Buy</div>
+      <div class="testi-role">Up to 500 words · No strings attached</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="cta-eyebrow">Limited Founding Spots Open</p>
+  <h2 class="cta-title">Get your first article<br><em>absolutely free</em></h2>
+  <p class="cta-sub">No commitment. No credit card. Just exceptional writing delivered to your inbox — so you can see exactly what we're made of before spending a single dollar.</p>
+  <div class="cta-actions">
+    <button class="btn-primary" onclick="window.location.href='mailto:writerisehq@gmail.com?subject=Free Trial Article – Write Rise Agency'">Claim Free Article</button>
+    <button class="btn-ghost" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.2)" onclick="window.location.href='mailto:writerisehq@gmail.com?subject=Book a Free Call – Write Rise Agency'">Book a Free Call</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo-text" style="margin-bottom:20px; font-size:18px;">WRITE <span>RISE</span><small>AGENCY</small></div>
+      <p>We are a premium content and copywriting agency helping brands tell their story with clarity, conviction, and craft.</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="#">in</a>
+        <a class="social-btn" href="#">𝕏</a>
+        <a class="social-btn" href="#">ig</a>
+        <a class="social-btn" href="#">fb</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul class="footer-links">
+        <li><a href="#">Copywriting</a></li>
+        <li><a href="#">Blog Writing</a></li>
+        <li><a href="#">Website Content</a></li>
+        <li><a href="#">Email Campaigns</a></li>
+        <li><a href="#">Social Media</a></li>
+        <li><a href="#">Whitepapers</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Case Studies</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul class="footer-links">
+        <li><a href="mailto:writerisehq@gmail.com">writerisehq@gmail.com</a></li>
+        <li><a href="mailto:writerisehq@gmail.com?subject=Book a Free Call – Write Rise Agency">Book a Call</a></li>
+        <li><a href="mailto:writerisehq@gmail.com?subject=Get a Quote – Write Rise Agency">Get a Quote</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Write Rise Agency. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
