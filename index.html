@@ -17,32 +17,27 @@
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: center; /* Center the container */
     padding: 18px 6%; background: rgba(250,248,243,0.92); backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(184,150,46,0.15); transition: all .3s ease;
   }
+  .nav-container {
+    width: 100%; max-width: 1400px; /* Keeps button from drifting too far right */
+    display: flex; align-items: center; justify-content: space-between;
+  }
   nav.scrolled { padding: 12px 6%; box-shadow: 0 4px 30px rgba(26,39,68,0.08); }
-  .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; letter-spacing: 2px; color: var(--navy-deep); line-height: 1; display: flex; flex-direction: column; }
+  
+  .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; letter-spacing: 2px; color: var(--navy-deep); line-height: 1; display: flex; flex-direction: column; text-decoration: none; }
   .logo-text span { color: var(--gold); }
   .logo-text small { font-family: 'Montserrat', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; }
   
   .nav-links { display: flex; gap: 30px; list-style: none; }
-  .nav-links a { font-size: 11px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--navy); letter-spacing: 1px; }
+  .nav-links a { font-size: 11px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--navy); letter-spacing: 1px; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: var(--gold); transition: 0.3s; }
+  .nav-links a:hover::after { width: 100%; }
 
-  /* ADJUSTED CLIP-PATH & PADDING FOR VISIBILITY */
-  .nav-cta { 
-    background: var(--navy); 
-    color: var(--white); 
-    padding: 12px 30px; 
-    border: none; 
-    cursor: pointer; 
-    font-size: 11px; 
-    font-weight: 700; 
-    text-transform: uppercase; 
-    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); 
-    transition: .3s; 
-  }
-  .nav-cta:hover { background: var(--gold); }
+  .nav-cta { background: var(--navy); color: var(--white); padding: 12px 28px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: .3s; white-space: nowrap; }
+  .nav-cta:hover { background: var(--gold); transform: translateY(-1px); }
 
   /* ── HERO ── */
   .hero { min-height: 100vh; background: var(--navy-deep); color: white; display: flex; align-items: center; padding: 120px 6%; position: relative; }
@@ -54,8 +49,15 @@
   .btn-ghost { background: transparent; color: var(--white); padding: 15px 38px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; font-weight: 600; text-transform: uppercase; transition: .3s; }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
+  /* ── SERVICES SECTION (NEW) ── */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+  .service-card { padding: 40px; background: var(--white); border: 1px solid rgba(26,39,68,0.05); transition: 0.4s; }
+  .service-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+  .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 15px; }
+  .service-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+
   /* ── SECTIONS ── */
-  .section { padding: 120px 6%; }
+  .section { padding: 120px 6%; max-width: 1400px; margin: 0 auto; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; margin-bottom: 40px; }
   .section-title em { color: var(--gold); font-style: italic; }
 
@@ -68,58 +70,71 @@
   .testi-card { background: var(--white); padding: 40px; border-top: 3px solid var(--gold); }
   .testi-card.dark { background: var(--navy-deep); color: white; }
 
-  /* ── CENTERED CONTACT FORM ── */
+  /* ── CONTACT ── */
   .contact-section { background: var(--white); padding: 120px 6%; text-align: center; }
   .contact-container { max-width: 650px; margin: 0 auto; }
   .contact-form { margin-top: 45px; background: var(--cream); padding: 50px; border: 1px solid rgba(184,150,46,0.1); display: flex; flex-direction: column; gap: 20px; text-align: left; }
-  .form-group input, .form-group textarea { width: 100%; padding: 16px; border: 1px solid rgba(26,39,68,0.1); font-family: 'Montserrat'; background: var(--white); }
+  .form-group input, .form-group textarea { width: 100%; padding: 16px; border: 1px solid rgba(26,39,68,0.1); font-family: 'Montserrat'; background: var(--white); outline: none; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
 
-  /* ── REVEAL ANIMATION ── */
+  /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ── FOOTER ── */
   footer { background: #080f1e; padding: 70px 6%; text-align: center; color: rgba(255,255,255,0.4); }
-  .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+  .social-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+  .social-btn { width: 44px; height: 44px; border: 1px solid rgba(184,150,46,0.25); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--gold); transition: .3s; border-radius: 50%; }
+  .social-btn:hover { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
   
-  /* ENHANCED SOCIAL BUTTONS */
-  .social-btn { 
-    width: 50px; 
-    height: 50px; 
-    border: 1px solid var(--gold); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    text-decoration: none; 
-    color: var(--gold); 
-    font-weight: 700;
-    font-size: 14px;
-    border-radius: 50%; /* Circular for better identity */
-    transition: .3s ease; 
-  }
-  .social-btn:hover { background: var(--gold); color: var(--navy-deep); transform: scale(1.1); }
+  /* FOOTER LOGO FIX: "WRITE" IS NOW WHITE */
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; letter-spacing: 3px; color: #ffffff; margin-bottom: 20px; }
+  .footer-logo span { color: var(--gold); }
 </style>
 </head>
 <body>
 
 <nav id="navbar">
-  <div class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></div>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact"><button class="nav-cta">Get a Quote</button></a>
+  <div class="nav-container">
+    <a href="#" class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact"><button class="nav-cta">Get a Quote</button></a>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-content">
-    <div style="color:var(--gold); font-size:10px; letter-spacing:3px; margin-bottom:20px; text-transform:uppercase;">Words are your strongest currency</div>
+    <div style="color:var(--gold); font-size:10px; letter-spacing:3px; margin-bottom:20px; text-transform:uppercase; font-weight:700;">Words are your strongest currency</div>
     <h1>Words That<br><em>Elevate</em><br>Brands</h1>
-    <p style="color:rgba(255,255,255,0.5); margin: 30px 0 50px; max-width: 550px;">We craft premium content that transforms readers into loyal customers — and brands into industry leaders.</p>
+    <p style="color:rgba(255,255,255,0.5); margin: 30px 0 50px; max-width: 550px; line-height:1.8;">We craft premium content that transforms readers into loyal customers — and brands into industry leaders through strategic storytelling.</p>
     <div class="hero-actions">
       <a href="#contact"><button class="btn-primary">Start a Project</button></a>
       <a href="#services"><button class="btn-ghost" style="margin-left:15px;">Our Expertise</button></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <h2 class="section-title">Our <em>Expertise</em></h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div style="color:var(--gold); font-size:24px; margin-bottom:10px;">01</div>
+      <h3>Brand Storytelling</h3>
+      <p>We define your voice and craft narratives that resonate deeply with your target audience, building lasting emotional connections.</p>
+    </div>
+    <div class="service-card reveal">
+      <div style="color:var(--gold); font-size:24px; margin-bottom:10px;">02</div>
+      <h3>SEO Copywriting</h3>
+      <p>Content that ranks and converts. We balance search engine requirements with human-centric, persuasive writing.</p>
+    </div>
+    <div class="service-card reveal">
+      <div style="color:var(--gold); font-size:24px; margin-bottom:10px;">03</div>
+      <h3>Content Strategy</h3>
+      <p>Beyond just writing, we plan your content ecosystem to ensure every word serves a measurable business goal.</p>
     </div>
   </div>
 </section>
@@ -132,15 +147,15 @@
 </section>
 
 <section class="section" id="portfolio">
-  <h2 class="section-title">Founding <em>Commitment</em></h2>
+  <h2 class="section-title">Client <em>Results</em></h2>
   <div class="testi-grid">
     <div class="testi-card reveal">
       <p style="font-style:italic; margin-bottom: 20px; font-family:'Cormorant Garamond'; font-size:24px;">"The turnaround was incredible, and the quality was unmatched by larger agencies."</p>
-      <div style="font-weight:700; font-size:12px;">FOUNDING CLIENT</div>
+      <div style="font-weight:700; font-size:12px; letter-spacing:1px;">FOUNDING CLIENT</div>
     </div>
     <div class="testi-card dark reveal">
       <p style="font-style:italic; margin-bottom: 20px; font-family:'Cormorant Garamond'; font-size:24px;">"Professional, responsive, and truly understands brand voice. A game changer for our SEO."</p>
-      <div style="font-weight:700; font-size:12px; color:var(--gold);">PORTFOLIO PARTNER</div>
+      <div style="font-weight:700; font-size:12px; color:var(--gold); letter-spacing:1px;">PORTFOLIO PARTNER</div>
     </div>
   </div>
 </section>
@@ -148,6 +163,7 @@
 <section class="contact-section" id="contact">
   <div class="contact-container reveal">
     <h2 class="section-title">Ready to <em>Rise?</em></h2>
+    <p style="color:var(--text-muted); margin-bottom:10px;">Let's build your legacy together.</p>
     <p style="color:var(--text-muted);">Reach us directly at <span style="color:var(--gold); font-weight:700;">writerisehq@gmail.com</span></p>
     
     <form class="contact-form">
@@ -162,9 +178,9 @@
 <footer>
   <div class="social-links">
     <a href="https://www.instagram.com/writeriseagency?igsh=MXYyd2h3a3I0NXQweA==" target="_blank" class="social-btn" title="Instagram">IG</a>
-    <a href="mailto:writerisehq@gmail.com" class="social-btn" title="Email Us">Mail</a>
+    <a href="mailto:writerisehq@gmail.com" class="social-btn" title="Email Us">✉</a>
   </div>
-  <div class="logo-text" style="font-size:18px; margin-bottom:20px; align-items:center;">WRITE <span>RISE</span></div>
+  <div class="footer-logo">WHITE <span>RISE</span></div>
   <p>© 2026 Write Rise Agency. All rights reserved.</p>
 </footer>
 
