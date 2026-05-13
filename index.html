@@ -6,93 +6,161 @@
 <title>Write Rise Agency – Words That Work</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* - Your core variables and styles preserved */
   :root {
-    --navy: #1a2744; --navy-deep: #0f1a30; --gold: #b8962e;
-    --gold-light: #d4af5a; --cream: #faf8f3; --white: #ffffff;
-    --text-muted: #7a8399;
+    --navy: #1a2744; --navy-deep: #0f1a30; --gold: #b8962e; --gold-light: #d4af5a;
+    --cream: #faf8f3; --white: #ffffff; --text-muted: #7a8399;
   }
-
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
-
-  /* PROFESSIONAL BUTTON FIXES */
-  .btn-link { text-decoration: none; display: inline-block; }
-  button { cursor: pointer; border: none; font-family: 'Montserrat', sans-serif; text-transform: uppercase; transition: all .3s; }
 
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 6%; background: rgba(250,248,243,0.92); backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(184,150,46,0.15);
+    border-bottom: 1px solid rgba(184,150,46,0.15); transition: all .3s ease;
   }
-  .nav-cta {
-    background: var(--navy); color: var(--white); padding: 11px 26px;
-    font-size: 11px; font-weight: 700; letter-spacing: 2px;
-    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  }
+  nav.scrolled { padding: 12px 6%; box-shadow: 0 4px 30px rgba(26,39,68,0.08); }
+  .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; letter-spacing: 2px; color: var(--navy-deep); line-height: 1; display: flex; flex-direction: column; }
+  .logo-text span { color: var(--gold); }
+  .logo-text small { font-family: 'Montserrat', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; }
+  
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { font-size: 11px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--navy); letter-spacing: 1px; }
+
+  .nav-cta { background: var(--navy); color: var(--white); padding: 11px 26px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: .3s; }
   .nav-cta:hover { background: var(--gold); }
 
-  /* ── CONTACT FORM SECTION (NEW) ── */
-  .contact-section { padding: 100px 6%; background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-  .contact-form { background: var(--cream); padding: 40px; border: 1px solid rgba(184,150,46,0.1); }
-  .form-group { margin-bottom: 20px; }
-  .form-group label { display: block; font-size: 10px; font-weight: 700; margin-bottom: 8px; color: var(--gold); letter-spacing: 1px; }
-  .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; font-family: 'Montserrat'; }
-
-  /* ... [Your original styles for Hero, Marquee, and Services kept here] ... */
-  .hero { min-height: 100vh; background: var(--navy-deep); display: flex; align-items: center; padding: 0 6%; color: white; position: relative; }
-  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(50px, 8vw, 90px); line-height: 1; }
+  /* ── HERO ── */
+  .hero { min-height: 100vh; background: var(--navy-deep); color: white; display: flex; align-items: center; padding: 120px 6%; position: relative; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 7vw, 96px); font-weight: 700; line-height: 1.0; }
   .hero h1 em { color: var(--gold-light); font-style: italic; }
-  .btn-primary { background: var(--gold); color: var(--navy-deep); padding: 16px 40px; font-weight: 700; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
+  
+  .btn-primary { background: var(--gold); color: var(--navy-deep); padding: 16px 40px; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); transition: .3s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--white); padding: 15px 38px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; font-weight: 600; text-transform: uppercase; transition: .3s; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 120px 6%; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; margin-bottom: 40px; }
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  /* ── QUOTE SECTION ── */
+  .quote-box { padding: 80px 10%; background: var(--white); text-align: center; border-left: 5px solid var(--gold); margin: 40px 0; }
+  .quote-box p { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: var(--navy-deep); }
+
+  /* ── TESTIMONIALS ── */
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .testi-card { background: var(--white); padding: 40px; border-top: 3px solid var(--gold); position: relative; }
+  .testi-card.dark { background: var(--navy-deep); color: white; }
+
+  /* ── CONTACT FORM ── */
+  .contact-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; background: var(--white); padding: 120px 6%; }
+  .contact-form { background: var(--cream); padding: 40px; border: 1px solid rgba(184,150,46,0.1); display: flex; flex-direction: column; gap: 20px; }
+  .form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid rgba(26,39,68,0.1); font-family: 'Montserrat'; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
 <nav id="navbar">
-  <div class="logo-text" style="font-family:'Cormorant Garamond'; font-weight:700;">WRITE <span style="color:var(--gold)">RISE</span></div>
-  <a href="#contact" class="btn-link"><button class="nav-cta">Get a Quote</button></a>
+  <div class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact"><button class="nav-cta">Get a Quote</button></a>
 </nav>
 
 <section class="hero">
   <div class="hero-content">
+    <div style="color:var(--gold); font-size:10px; letter-spacing:3px; margin-bottom:20px; text-transform:uppercase;">Words are your strongest currency</div>
     <h1>Words That<br><em>Elevate</em><br>Brands</h1>
-    <p style="margin: 20px 0 40px; color: rgba(255,255,255,0.6);">Premium copywriting for industry leaders.</p>
+    <p style="color:rgba(255,255,255,0.5); margin: 30px 0 50px; max-width: 550px;">We craft premium content that transforms readers into loyal customers — and brands into industry leaders.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-link"><button class="btn-primary">Start a Project</button></a>
+      <a href="#contact"><button class="btn-primary">Start a Project</button></a>
+      <a href="#services"><button class="btn-ghost" style="margin-left:15px;">Our Expertise</button></a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="quote-box reveal">
+    <p>"Your brand is what people say about you when you're not in the room. We make sure they're saying the right things."</p>
+    <div style="margin-top:20px; font-size:12px; letter-spacing:2px; color:var(--gold); font-weight:700;">— THE WRITE RISE PHILOSOPHY</div>
+  </div>
+</section>
+
+<section class="section" id="services" style="background:var(--white);">
+  <h2 class="section-title">Content that <em>Converts</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <h3>SEO Copywriting</h3>
+      <p style="color:var(--text-muted); margin-top:15px;">Dominate search results with high-ranking articles that provide real value to your readers.</p>
+    </div>
+    <div class="testi-card reveal">
+      <h3>Sales Strategy</h3>
+      <p style="color:var(--text-muted); margin-top:15px;">Persuasive landing pages and ad copy designed to maximize your return on investment.</p>
+    </div>
+    <div class="testi-card reveal">
+      <h3>Brand Identity</h3>
+      <p style="color:var(--text-muted); margin-top:15px;">Developing a unique, authoritative voice that sets your agency apart from the competition.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="portfolio">
+  <h2 class="section-title">Founding <em>Commitment</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div style="color:var(--gold); font-size:30px;">✦</div>
+      <p class="testi-quote" style="font-style:italic; margin: 20px 0;">"They didn't just write a blog; they built our authority. The turnaround was incredible."</p>
+      <div style="font-weight:700; font-size:12px;">EARLY ADOPTER PROJECT</div>
+      <div style="color:var(--text-muted); font-size:11px;">Tech & SaaS Sector</div>
+    </div>
+    <div class="testi-card dark reveal">
+      <div style="color:var(--gold); font-size:30px;">✦</div>
+      <p class="testi-quote" style="font-style:italic; margin: 20px 0;">"As a founding client, the attention to detail we received was unmatched by larger agencies."</p>
+      <div style="font-weight:700; font-size:12px;">PORTFOLIO PARTNER</div>
+      <div style="color:rgba(255,255,255,0.5); font-size:11px;">E-commerce Leader</div>
     </div>
   </div>
 </section>
 
 <section class="contact-section" id="contact">
-  <div>
-    <h2 style="font-family:'Cormorant Garamond'; font-size: 48px;">Ready to <em>Rise?</em></h2>
-    <p style="margin: 20px 0; color: var(--text-muted);">Fill out the form or email us at <br><strong>hello@writerise.agency</strong></p>
+  <div class="reveal">
+    <h2 class="section-title">Ready to <em>Rise?</em></h2>
+    <p>Success starts with a single conversation. Fill out the form or reach us directly at:</p>
+    <p style="font-weight:700; color:var(--gold); margin-top:20px;">HELLO@WRITERISE.AGENCY</p>
   </div>
-  <form class="contact-form">
-    <div class="form-group">
-      <label>NAME</label>
-      <input type="text" placeholder="Your name">
-    </div>
-    <div class="form-group">
-      <label>EMAIL</label>
-      <input type="email" placeholder="Your email">
-    </div>
-    <div class="form-group">
-      <label>MESSAGE</label>
-      <textarea rows="4" placeholder="How can we help?"></textarea>
-    </div>
-    <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+  <form class="contact-form reveal">
+    <div class="form-group"><input type="text" placeholder="Your Name" required></div>
+    <div class="form-group"><input type="email" placeholder="Your Email" required></div>
+    <div class="form-group"><textarea rows="4" placeholder="Tell us about your project"></textarea></div>
+    <button type="submit" class="btn-primary">Start Your Project</button>
   </form>
 </section>
 
-<footer>
-  <p style="text-align: center; padding: 40px; background: #080f1e; color: rgba(255,255,255,0.3); font-size: 12px;">
-    © 2026 Write Rise Agency. All rights reserved.
-  </p>
+<footer style="background:#080f1e; padding:60px 6%; text-align:center; color:rgba(255,255,255,0.3);">
+  <div class="logo-text" style="font-size:18px; margin-bottom:20px; align-items:center;">WRITE <span>RISE</span></div>
+  <p>© 2026 Write Rise Agency. All rights reserved.</p>
 </footer>
 
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
