@@ -31,7 +31,7 @@
   .logo-text span { color: var(--gold); }
   .logo-text small { font-family: 'Montserrat', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; }
   
-  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links { display: flex; gap: 20px; list-style: none; }
   .nav-links a { font-size: 11px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--navy); letter-spacing: 1px; position: relative; }
   .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: var(--gold); transition: 0.3s; }
   .nav-links a:hover::after { width: 100%; }
@@ -46,17 +46,20 @@
   .btn-ghost { background: transparent; color: var(--white); padding: 15px 38px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; font-weight: 600; text-transform: uppercase; transition: .3s; text-decoration: none; display: inline-block; }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* ── SERVICES ── */
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-  .service-card { padding: 40px; background: var(--white); border: 1px solid rgba(26,39,68,0.05); transition: 0.4s; }
+  /* ── SECTIONS ── */
+  .section { padding: 100px 6%; max-width: 1400px; margin: 0 auto; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; margin-bottom: 40px; text-align: center; }
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  /* ── SERVICES & PRICING GRID ── */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+  .service-card { padding: 40px; background: var(--white); border: 1px solid rgba(26,39,68,0.05); transition: 0.4s; position: relative; }
   .service-card:hover { border-color: var(--gold); transform: translateY(-10px); }
   .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 15px; }
   .service-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
-
-  /* ── SECTIONS ── */
-  .section { padding: 120px 6%; max-width: 1400px; margin: 0 auto; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; margin-bottom: 40px; }
-  .section-title em { color: var(--gold); font-style: italic; }
+  
+  .price-list { list-style: none; margin: 20px 0; font-size: 14px; color: var(--navy); line-height: 2.2; }
+  .price-list li::before { content: "✓"; color: var(--gold); margin-right: 10px; font-weight: bold; }
 
   /* ── QUOTE SECTION ── */
   .quote-box { padding: 80px 10%; background: var(--white); text-align: center; border-left: 5px solid var(--gold); margin: 40px 0; }
@@ -86,6 +89,12 @@
   
   .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; letter-spacing: 3px; color: #ffffff; margin-bottom: 20px; text-transform: uppercase; }
   .footer-logo span { color: var(--gold); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; } /* Simplified for mobile focus */
+    .hero h1 { font-size: 48px; }
+    .contact-form { padding: 30px; }
+  }
 </style>
 </head>
 <body>
@@ -95,6 +104,7 @@
     <a href="#" class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -108,7 +118,7 @@
     <p style="color:rgba(255,255,255,0.5); margin: 30px 0 50px; max-width: 550px; line-height:1.8;">We craft premium content that transforms readers into loyal customers — and brands into industry leaders through strategic storytelling.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Start a Project</a>
-      <a href="#services" class="btn-ghost" style="margin-left:15px;">Our Expertise</a>
+      <a href="#services" class="btn-ghost" style="margin-left:15px;">Expertise</a>
     </div>
   </div>
 </section>
@@ -130,6 +140,50 @@
       <div style="color:var(--gold); font-size:24px; margin-bottom:10px;">03</div>
       <h3>Content Strategy</h3>
       <p>Beyond just writing, we plan your content ecosystem to ensure every word serves a measurable business goal.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing" style="background: var(--white);">
+  <h2 class="section-title">Investment <em>Plans</em></h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div style="color:var(--gold); font-size:11px; letter-spacing:2px; font-weight:700; margin-bottom:10px; text-transform:uppercase;">Essential</div>
+      <h3 style="font-size: 36px; margin-bottom: 5px;">$499<span style="font-size:16px; color:var(--text-muted); font-weight:400;">/mo</span></h3>
+      <p>Quality content for emerging brands.</p>
+      <ul class="price-list">
+        <li>4 Strategic Articles</li>
+        <li>Professional Editing</li>
+        <li>SEO Optimization</li>
+      </ul>
+      <a href="#contact" class="btn-ghost" style="color: var(--navy); border-color: var(--navy); width: 100%; text-align: center;">Inquire</a>
+    </div>
+
+    <div class="service-card reveal" style="border: 2px solid var(--gold); transform: scale(1.05); z-index: 5;">
+      <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: white; font-size: 9px; padding: 4px 12px; font-weight: 700; letter-spacing: 1px;">MOST POPULAR</div>
+      <div style="color:var(--gold); font-size:11px; letter-spacing:2px; font-weight:700; margin-bottom:10px; text-transform:uppercase;">Growth</div>
+      <h3 style="font-size: 36px; margin-bottom: 5px;">$1,499<span style="font-size:16px; color:var(--text-muted); font-weight:400;">/mo</span></h3>
+      <p>Full strategy for scaling reach.</p>
+      <ul class="price-list">
+        <li>8 Strategic Articles</li>
+        <li>Social Media Copy</li>
+        <li>Content Strategy Call</li>
+        <li>Priority Revisions</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="width: 100%; text-align: center;">Select Plan</a>
+    </div>
+
+    <div class="service-card reveal">
+      <div style="color:var(--gold); font-size:11px; letter-spacing:2px; font-weight:700; margin-bottom:10px; text-transform:uppercase;">Enterprise</div>
+      <h3 style="font-size: 32px; margin-bottom: 5px;">Custom</h3>
+      <p>Bespoke solutions for high-volume.</p>
+      <ul class="price-list">
+        <li>Unlimited Ecosystem</li>
+        <li>Dedicated Strategist</li>
+        <li>White-Glove Support</li>
+        <li>Custom Reporting</li>
+      </ul>
+      <a href="#contact" class="btn-ghost" style="color: var(--navy); border-color: var(--navy); width: 100%; text-align: center;">Contact Us</a>
     </div>
   </div>
 </section>
@@ -184,7 +238,8 @@
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 <script>
   window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    const nav = document.getElementById('navbar');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
   });
   
   const observer = new IntersectionObserver((entries) => {
