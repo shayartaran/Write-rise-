@@ -84,7 +84,6 @@
   .social-btn { width: 44px; height: 44px; border: 1px solid rgba(184,150,46,0.25); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--gold); transition: .3s; border-radius: 50%; }
   .social-btn:hover { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
   
-  /* FOOTER LOGO: WRITE (White) RISE (Gold) */
   .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; letter-spacing: 3px; color: #ffffff; margin-bottom: 20px; text-transform: uppercase; }
   .footer-logo span { color: var(--gold); }
 </style>
@@ -160,49 +159,19 @@
   <div class="contact-container reveal">
     <h2 class="section-title">Ready to <em>Rise?</em></h2>
     <p style="color:var(--text-muted); margin-bottom:10px;">Let's build your legacy together.</p>
-    <p style="color:var(--text-muted);">Reach us directly at <span style="color:var(--gold); font-weight:700;">writerisehq@gmail.com</span></p>
+    <p style="color:var(--text-muted); margin-bottom:20px;">Reach us directly at <span style="color:var(--gold); font-weight:700;">writerisehq@gmail.com</span></p>
     
-    <form class="contact-form" id="main-form">
-      <div class="form-group"><input type="text" placeholder="Your Name" required id="contact-name"></div>
-      <div class="form-group"><input type="email" placeholder="Your Email" required></div>
-      <div class="form-group"><textarea rows="5" placeholder="Tell us about your project..." required></textarea></div>
+    <div id="form-status" style="margin-bottom: 20px; font-weight: 700; font-size: 18px;"></div>
+
+    <form class="contact-form" id="fs-form">
+      <div class="form-group"><input type="text" name="name" placeholder="Your Name" required></div>
+      <div class="form-group"><input type="email" name="email" placeholder="Your Email" required></div>
+      <div class="form-group"><textarea name="message" rows="5" placeholder="Tell us about your project..." required></textarea></div>
       <button type="submit" class="btn-primary" style="width:100%; border-radius:0;">Send Message</button>
     </form>
   </div>
 </section>
-<section style="padding: 20px; max-width: 600px; margin: 0 auto; font-family: sans-serif;">
-  <h2 style="text-align: center;">Contact Us</h2>
-  <div id="form-status" style="text-align: center; margin-bottom: 10px; font-weight: bold;"></div>
-  <form id="fs-form" style="display: flex; flex-direction: column; gap: 15px;">
-    <input type="text" name="name" placeholder="Your Name" required 
-           style="padding: 12px; border: 1px solid #ccc; border-radius: 4px;">
-    <input type="email" name="email" placeholder="Your Email" required 
-           style="padding: 12px; border: 1px solid #ccc; border-radius: 4px;">
-    <textarea name="message" placeholder="How can we help?" required 
-              style="padding: 12px; border: 1px solid #ccc; border-radius: 4px; min-height: 120px;"></textarea>
-    <button type="submit" id="fs-submit" 
-            style="padding: 12px; background: #000; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
-      Send Message
-    </button>
-  </form>
-</section>
 
-<script>
-  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-  formspree('initForm', { 
-    formElement: '#fs-form', 
-    formId: 'mkoyeepa',
-    onSuccess: function() {
-      var status = document.getElementById('form-status');
-      var form = document.getElementById('fs-form');
-      status.innerHTML = "Thanks! Your message has been sent.";
-      status.style.color = "green";
-      form.style.display = "none";
-    }
-  });
-</script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-  
 <footer>
   <div class="social-links">
     <a href="https://www.instagram.com/writeriseagency?igsh=MXYyd2h3a3I0NXQweA==" target="_blank" class="social-btn" title="Instagram">IG</a>
@@ -212,16 +181,31 @@
   <p>© 2026 Write Rise Agency. All rights reserved.</p>
 </footer>
 
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
   });
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { 
+    formElement: '#fs-form', 
+    formId: 'mkoyeepa',
+    onSuccess: function() {
+      var status = document.getElementById('form-status');
+      var form = document.getElementById('fs-form');
+      status.innerHTML = "Thanks! Your message has been sent.";
+      status.style.color = "#b8962e"; 
+      form.style.display = "none";
+    }
+  });
 </script>
 </body>
 </html>
