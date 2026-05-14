@@ -248,7 +248,7 @@
 
 <nav id="navbar">
   <div class="nav-container">
-    <a href="#" class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></a>
+    <a href="#home" class="logo-text">WRITE <span>RISE</span><small>AGENCY</small></a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
@@ -261,7 +261,7 @@
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="home">
   <div class="hero-content">
     <div style="color:var(--gold); font-size:10px; letter-spacing:3px; margin-bottom:20px; text-transform:uppercase; font-weight:700;">Words are your strongest currency</div>
     <h1>Words That<br><em>Elevate</em><br>Brands</h1>
@@ -389,6 +389,7 @@
       <p>Bespoke solutions for high-volume.</p>
       <ul class="price-list">
         <li>Unlimited Ecosystem</li>
+        <li>Unlimited Ecosystem</li>
         <li>Dedicated Strategist</li>
         <li>White-Glove Support</li>
         <li>Custom Reporting</li>
@@ -472,7 +473,7 @@
         <label>Tell Us About Your Project</label>
         <textarea name="message" rows="5" placeholder="What are your content goals? Who is your audience? Any deadline?" required></textarea>
       </div>
-      <button type="submit" class="btn-primary" style="width:100%; border-radius:0; font-size:13px; letter-spacing:2px;">Send Message →</button>
+      <button type="submit" class="btn-primary" id="submit-btn" style="width:100%; border-radius:0; font-size:13px; letter-spacing:2px;">Send Message →</button>
     </form>
   </div>
 </section>
@@ -521,16 +522,20 @@
       menu.classList.remove('open');
       btn.classList.remove('open');
       document.body.style.overflow = '';
+      setTimeout(() => { menu.style.display = 'none'; }, 300);
     } else {
-      menu.classList.add('open');
+      menu.style.display = 'flex';
+      setTimeout(() => { menu.classList.add('open'); }, 10);
       btn.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
   }
   function closeMobile() {
-    document.getElementById('mobileMenu').classList.remove('open');
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
     document.body.style.overflow = '';
+    setTimeout(() => { menu.style.display = 'none'; }, 300);
   }
 
   // ANIMATED STAT COUNTERS
@@ -560,6 +565,37 @@
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObserver.observe(statsBar);
 
+  // FORMSPREE AJAX SUBMISSION (prevents page jump on submit)
+  const fsForm = document.getElementById('fs-form');
+  if (fsForm) {
+    fsForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const status = document.getElementById('form-status');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const response = await fetch(fsForm.action, {
+          method: 'POST',
+          body: new FormData(fsForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          status.style.color = 'var(--gold)';
+          status.textContent = '✓ Message sent! We\'ll be in touch soon.';
+          fsForm.reset();
+        } else {
+          status.style.color = '#c0392b';
+          status.textContent = '✗ Something went wrong. Please try again or email us directly.';
+        }
+      } catch (err) {
+        status.style.color = '#c0392b';
+        status.textContent = '✗ Network error. Please try again or email us directly.';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+    });
+  }
 
 </script>
 </body>
