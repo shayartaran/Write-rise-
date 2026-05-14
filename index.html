@@ -455,7 +455,7 @@
     
     <div id="form-status" style="margin-bottom: 20px; font-weight: 700; font-size: 18px;"></div>
 
-    <form class="contact-form" id="fs-form">
+    <form class="contact-form" id="fs-form" action="https://formspree.io/f/mkoyeepa" method="POST">
       <div class="form-group">
         <label>Your Name</label>
         <input type="text" name="name" placeholder="e.g. Sarah Johnson" required>
@@ -495,7 +495,6 @@
 <!-- BACK TO TOP -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 <script>
   // NAV SCROLL
   window.addEventListener('scroll', () => {
@@ -561,19 +560,7 @@
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObserver.observe(statsBar);
 
-  // FORMSPREE
-  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-  formspree('initForm', { 
-    formElement: '#fs-form', 
-    formId: 'mkoyeepa',
-    onSuccess: function() {
-      var status = document.getElementById('form-status');
-      var form = document.getElementById('fs-form');
-      status.innerHTML = "✓ Thanks! Your message has been sent. We'll be in touch within 24 hours.";
-      status.style.color = "#b8962e"; 
-      form.style.display = "none";
-    }
-  });
+
 </script>
 </body>
 </html>
